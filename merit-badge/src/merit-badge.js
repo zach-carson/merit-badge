@@ -6,7 +6,6 @@ class MeritBadge extends LitElement {
   };
 
   static styles = css`
-  
     .badge {
       width: 200px;
       height: 200px;
@@ -23,34 +22,6 @@ class MeritBadge extends LitElement {
       text-shadow: -1px -1px #aa3030;
       font-weight: normal;
     }
-
-    .date {
-      center: 
-      position: relative;
-      width: 400px;
-      height: 400px;
-    }
-
-    .date span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-90deg) skewY(30deg);
-    }
-
-    .title {
-      position: relative;
-      width: 400px;
-      height: 400px;
-    }
-
-    .title span {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) rotate(-90deg) skewY(30deg);
-    }
-  
   `;
 
   constructor() {
