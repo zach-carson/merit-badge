@@ -29,6 +29,17 @@ class MeritBadge extends LitElement {
     this.header = 'My app';
   }
 
+  firstUpdated(changedProperties) {
+    if (super.firstUpdated) {
+      super.firstUpdated(changedProperties);
+    }
+    this.activeNode = this.shadowRoot.querySelector('#badge');
+  }
+
+  skillClick() {
+    this.skillsOpened = !this.skillsOpened;
+  }
+
   render() {
     return html` 
     <main>
@@ -38,6 +49,24 @@ class MeritBadge extends LitElement {
             <div class="title"><span>title<span></div>
           <div>
         </div>
+
+        <absolute-position-behavior
+            justify
+            position="bottom"
+            allow-overlap
+            sticky
+            auto
+            .target="${this.activeNode}"
+            ?hidden="${!this.skillsOpened}"
+          >
+          
+        </absolute-position-behavior>
+
+          <simple-icon-button
+            icon="cancel"
+            @click="${this.skillClick}"
+          >
+          </simple-icon-button>
     </main> `;
   }
 }
