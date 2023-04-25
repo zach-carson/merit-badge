@@ -19,10 +19,11 @@
     import "@lrnwebcomponents/absolute-position-behavior/absolute-position-behavior.js";
   </script>
   <script src="node_modules/jquery/dist/jquery.min.js"></script>
-  <script src="node_modules/jquery/dist/lettering.js"
-  >
-  $(".date").lettering();
-</script>
+  <script src="node_modules/jquery/dist/lettering.js">
+    $(function() {
+      $(".date").lettering();
+    });
+  </script>
 </body>
 
 </html>

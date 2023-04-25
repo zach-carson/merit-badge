@@ -2,16 +2,21 @@ import { LitElement, html, css } from 'lit';
 
 class MeritBadge extends LitElement {
   static properties = {
-    header: { type: String },
+    date: { type: String },
+    title_: { type: String },
+    buttontext: { type: String },
+    activeNode: { type: Object },
+    skillsOpened: { type: Boolean },
   };
 
   static styles = css`
+  
     .badge {
       width: 200px;
       height: 200px;
       border-radius: 50%;
       background-color: red;
-      border: solid black;
+      position: absolute:
 
       margin: 10px;
       font-size: 21px;
@@ -22,32 +27,51 @@ class MeritBadge extends LitElement {
       text-shadow: -1px -1px #aa3030;
       font-weight: normal;
     }
+
+    
+
+
+    .button {
+      position: absolute;
+      left: 80px;
+      top: 230px;
+      width: 65px;
+      padding-bottom: 0px;
+      border: solid black;
+      background-color: white;
+    }
+
+    .button-text {
+      text-align: center;
+    }
   `;
 
   constructor() {
     super();
-    this.header = 'My app';
-  }
-
-  firstUpdated(changedProperties) {
-    if (super.firstUpdated) {
-      super.firstUpdated(changedProperties);
-    }
-    this.activeNode = this.shadowRoot.querySelector('#badge');
-  }
-
-  skillClick() {
-    this.skillsOpened = !this.skillsOpened;
+    this.title_ = 'Badge Title';
+    this.date = 'Badge Date';
+    this.buttontext = 'Unlock';
   }
 
   render() {
     return html` 
     <main>
         <div class="badge">
-          <div class="badge-text">
-            <div class="date"><span>date<span></div>
-            <div class="title"><span>title<span></div>
+          
+        <div class="badge-text">
+            <div class="date">${this.date}</div>
+            <div class="title">${this.title_}</div>
           <div>
+
+
+          <simple-icon-button
+              class="button"
+              icon="cancel"
+              @click="${this.skillClick}"
+          >
+            <div class="button-text">Unlock<div>
+          </simple-icon-button>
+
         </div>
 
         <absolute-position-behavior
@@ -59,15 +83,13 @@ class MeritBadge extends LitElement {
             .target="${this.activeNode}"
             ?hidden="${!this.skillsOpened}"
           >
-          
         </absolute-position-behavior>
-
-          <simple-icon-button
-            icon="cancel"
-            @click="${this.skillClick}"
-          >
-          </simple-icon-button>
+  
     </main> `;
+  }
+
+  skillClick() {
+    this.skillsOpened = !this.skillsOpened;
   }
 }
 
