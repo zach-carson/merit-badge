@@ -21,6 +21,7 @@
     "@lrnwebcomponents/absolute-position-behavior": "^4.2.0",
     "@lrnwebcomponents/simple-icon": "^4.2.0",
     "jquery": "^3.6.4",
+    "lettering.js": "^0.8.2",
     "lit": "^2.0.2"
   },
   "devDependencies": {
@@ -58,6 +59,5 @@
     "singleQuote": true,
     "arrowParens": "avoid"
   },
- 
   "customElements": "custom-elements.json"
 }
