@@ -40,18 +40,6 @@ class MeritBadge extends LitElement {
       left: 100px;
     }
 
-    .date span {
-      font: 26px Monaco, MonoSpace;
-      height: 200px;
-      position: absolute;
-      width: 20px;
-      left: 0;
-      top: 0;
-      transform-origin: bottom center;
-      transform: rotate(10deg);
-    }
-
-  
     .badge-lock {
       width: 210px;
       height: 210px;
@@ -86,7 +74,20 @@ class MeritBadge extends LitElement {
     }
 
     .text1 {
-      position: relative;
+      font: 10px Monaco, MonoSpace;
+      position: absolute;
+      top: -95px;
+      left: -47px;
+      width: 400px;
+      border-radius: 50%;
+      transform: rotate(-50deg);
+    }
+
+    .text2 {
+      font: 10px Monaco, MonoSpace;
+      position: absolute;
+      top: -10px;
+      left: -100px;
       width: 400px;
       border-radius: 50%;
       transform: rotate(-50deg);
@@ -96,7 +97,7 @@ class MeritBadge extends LitElement {
       height: 200px;
       position: absolute;
       width: 20px;
-      left: 0;
+      left: -15px;
       top: 0;
       transform-origin: bottom center;
       transform: rotate(10deg);
@@ -108,7 +109,7 @@ class MeritBadge extends LitElement {
   constructor() {
     super();
     this.title_ = 'Badge Name';
-    this.date = '01-01-11';
+    this.date = 'Hi there';
     this.buttontext = 'Unlock';
     
   }
@@ -152,6 +153,7 @@ class MeritBadge extends LitElement {
         <div class="badge">
           <div class="icon"><div>
           <div class="badge-text">
+
             <div class='text1'>
               <h1 id="text">Any custom text you type...</h1>
             </div>
@@ -160,9 +162,13 @@ class MeritBadge extends LitElement {
               <simple-icon accent-color="black" icon="android">
               </simple-icon>
             </div>
-            <div class="title_"><span>${this.title_}<span></div>
-        </div>
-        </div>
+
+            <div class='text2'>
+              <h1 id="text">hi</h1>
+            </div>
+
+          </div>
+          </div>
         </div>
 
         <div class="badge-lock" ?hidden="${this.skillsOpened}">
@@ -187,7 +193,6 @@ class MeritBadge extends LitElement {
             .target="${this.activeNode}"
             ?hidden="${!this.skillsOpened}"
           >
-          
         </absolute-position-behavior>
       
   
