@@ -157,14 +157,14 @@ class MeritBadge extends LitElement {
             <div class='text1'>
               <h1 id="text">Any custom text you type...</h1>
             </div>
+
+            <div class='text2'>
+              <h1 id="text">custom text custom text</h1>
+            </div>
               
             <div class="badge-icon">
               <simple-icon accent-color="black" icon="android">
               </simple-icon>
-            </div>
-
-            <div class='text2'>
-              <h1 id="text">custom text custom text</h1>
             </div>
 
           </div>
