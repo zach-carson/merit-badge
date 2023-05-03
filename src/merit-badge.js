@@ -85,7 +85,7 @@ class MeritBadge extends LitElement {
       position: relative;
       text-align: center;
       padding-bottom: 0px;
-      top: 15px;
+      top: 10px;
     }
 
     .text2 {
@@ -98,7 +98,7 @@ class MeritBadge extends LitElement {
     :host([newcolor="red"]) .badge {
       background-color: var (--badge-accent-color, red);
       background-color: red;
-      color: black;
+      color: white;
     }
 
     :host([newcolor="blue"]) .badge {
@@ -131,9 +131,6 @@ class MeritBadge extends LitElement {
       box-shadow: 0 0 0 4px yellow;
     }
 
-
-
-
   `;
 
   constructor() {
@@ -142,7 +139,8 @@ class MeritBadge extends LitElement {
     this.title_ = 'Badge Name';
     this.date = 'Badge Date';
     this.buttontext = 'Unlock';
-    this.icon = 'android'
+    this.icon = 'android';
+    this.iconcolor = 'black';
     
   }
 
@@ -173,7 +171,12 @@ class MeritBadge extends LitElement {
 
           </div>
           </div>
-      </div>
+          
+          
+          
+        </div>
+
+        
           
             <absolute-position-behavior
               justify
@@ -185,7 +188,7 @@ class MeritBadge extends LitElement {
               ?hidden="${!this.skillsOpened}"
             >
             </absolute-position-behavior>
-        </div>
+      
 
         <div class="badge-lock" ?hidden="${this.skillsOpened}">
             <simple-icon class="lock-icon" accent-color="black" icon="lock">
@@ -197,7 +200,7 @@ class MeritBadge extends LitElement {
               icon="cancel"
               @click="${this.skillClick}"
           >
-            <div class="button-text">Unlock<div>
+            <div class="button-text">Unlock</div>
           </simple-icon-button>
 
           
