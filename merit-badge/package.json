@@ -49,12 +49,6 @@
     "rollup-plugin-esbuild": "^5.0.0",
     "rollup-plugin-workbox": "^6.2.0"
   },
-  "eslintConfig": {
-    "extends": [
-      "@open-wc",
-      "prettier"
-    ]
-  },
   "prettier": {
     "singleQuote": true,
     "arrowParens": "avoid"

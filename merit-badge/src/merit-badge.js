@@ -103,6 +103,10 @@ class MeritBadge extends LitElement {
       transform: rotate(10deg);
     }
 
+    :host {
+      display: block;
+    }
+
 
   `;
 

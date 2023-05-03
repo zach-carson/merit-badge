@@ -10,6 +10,13 @@ class MeritBadge extends LitElement {
     buttontext: { type: String },
     activeNode: { type: Object },
     skillsOpened: { type: Boolean },
+    icon: {type: String},
+    iconcolor: {type: String},
+    newcolor: {
+      type: String,
+      reflect: true,
+      attribute: 'newcolor'
+    },
   };
 
   static styles = css`
@@ -19,49 +26,46 @@ class MeritBadge extends LitElement {
       height: 200px;
       border-radius: 50%;
       background-color: red;
-      position: absolute:
+      position: relative:
+      padding-top: 5px;
       
-
       margin: 10px;
       font-size: 21px;
       font-weight: bold;
       line-height: 1.3em;
       border: 2px dashed #fff;
       box-shadow: 0 0 0 4px #ff0030, 2px 1px 6px 4px rgba(10, 10, 0, 0.5);
-      text-shadow: -1px -1px #aa3030;
       font-weight: normal;
     }
     
 
 
     .badge-icon {
-      position: absolute;
-      top: 95px;
-      left: 100px;
+      position: relative;
+      top: -100px;
+      left: 3px;
     }
 
     .badge-lock {
+      position: relative;
       width: 210px;
       height: 210px;
+      top: -87.5px;
+      left: -5px;
       border-radius: 50%;
       background-color: grey;
-      position: absolute;
-      top: 5px;
-      left: 5px;
-      
     }
 
     .lock-icon {
-      position: absolute;
+      position: relative;
       top: 95px;
       left: 95px;
-      
     }
 
     .button {
       position: absolute;
       left: 75px;
-      top: 230px;
+      top: 165px;
       width: 65px;
       padding-bottom: 0px;
       border: solid black;
@@ -70,105 +74,117 @@ class MeritBadge extends LitElement {
 
     .button-text {
       text-align: center;
-      
+      color: black;
+    }
+
+    :host {
+      display: inline-block;
     }
 
     .text1 {
-      font: 10px Monaco, MonoSpace;
-      position: absolute;
-      top: -95px;
-      left: -47px;
-      width: 400px;
-      border-radius: 50%;
-      transform: rotate(-50deg);
+      position: relative;
+      text-align: center;
+      padding-bottom: 0px;
+      top: 15px;
     }
 
     .text2 {
-      font: 10px Monaco, MonoSpace;
-      position: absolute;
-      top: -10px;
-      left: -100px;
-      width: 400px;
-      border-radius: 50%;
-      transform: rotate(-50deg);
+      position: relative;
+      text-align: center;
+      
+      top: 110px;
     }
 
-    h1 span {
-      height: 200px;
-      position: absolute;
-      width: 20px;
-      left: -15px;
-      top: 0;
-      transform-origin: bottom center;
-      transform: rotate(10deg);
+    :host([newcolor="red"]) .badge {
+      background-color: var (--badge-accent-color, red);
+      background-color: red;
+      color: black;
     }
+
+    :host([newcolor="blue"]) .badge {
+      background-color: var (--badge-accent-color, blue);
+      background-color: blue;
+      color: white;
+      box-shadow: black;
+      box-shadow: 0 0 0 4px blue;
+    }
+
+    :host([newcolor="green"]) .badge {
+      background-color: var (--badge-accent-color, green);
+      background-color: green;
+      color: white;
+      box-shadow: 0 0 0 4px green;
+    }
+
+    :host([newcolor="brown"]) .badge {
+      background-color: var (--badge-accent-color, brown);
+      background-color: brown;
+      color: white;
+      box-shadow: 0 0 0 4px brown;
+    }
+
+    :host([newcolor="yellow"]) .badge {
+      background-color: var (--badge-accent-color, yellow);
+      background-color: yellow;
+      border-color: yellow;
+      color: black;
+      box-shadow: 0 0 0 4px yellow;
+    }
+
+
 
 
   `;
 
   constructor() {
     super();
+    this.newcolor = null;
     this.title_ = 'Badge Name';
-    this.date = 'Hi there';
+    this.date = 'Badge Date';
     this.buttontext = 'Unlock';
+    this.icon = 'android'
     
   }
 
-  firstUpdated(changedProperties) {
-    if (super.firstUpdated) {
-      super.firstUpdated(changedProperties);
-    }
-    this.activeNode = this.shadowRoot.querySelector("#badge");
-    this.lettering(
-      this.shadowRoot.querySelector('#text'),
-      this.date
-    );
-  }
 
   skillClick(e) {
     this.skillsOpened = !this.skillsOpened;
   }
 
-  lettering(node, text) {
-    var str = typeof text=='undefined'
-        ?node.textContent
-        :text;
-    node.innerHTML='';
-    var openTag = '<span>';
-    var closeTag = '</span>';
-    var newHTML = openTag;
-    var closeTags = closeTag;
-    for(var i=0,iCount=str.length;i<iCount;i++){
-        newHTML+=str[i]+openTag;
-        closeTags+=closeTag;
-    }
-    node.innerHTML = newHTML+closeTags;
-}
-
-
-
   render() {
     return html` 
-    <main>
+    
         <div class="badge">
           <div class="icon"><div>
           <div class="badge-text">
 
             <div class='text1'>
-              <h1 id="text">Any custom text you type...</h1>
-            </div>
-              
-            <div class="badge-icon">
-              <simple-icon accent-color="black" icon="android">
-              </simple-icon>
+              <div id="text">${this.date}</h1>
             </div>
 
             <div class='text2'>
-              <h1 id="text">custom text custom text</h1>
+              <div id="text">${this.title_}</h1>
+            </div>
+              
+            <div class="badge-icon">
+              <simple-icon accent-color=${this.iconcolor} icon=${this.icon}>
+              </simple-icon>
             </div>
 
           </div>
           </div>
+      </div>
+          
+            <absolute-position-behavior
+              justify
+              position="bottom"
+              allow-overlap
+              sticky
+              auto
+              .target="${this.activeNode}"
+              ?hidden="${!this.skillsOpened}"
+            >
+            </absolute-position-behavior>
         </div>
 
         <div class="badge-lock" ?hidden="${this.skillsOpened}">
@@ -184,19 +200,10 @@ class MeritBadge extends LitElement {
             <div class="button-text">Unlock<div>
           </simple-icon-button>
 
-        <absolute-position-behavior
-            justify
-            position="bottom"
-            allow-overlap
-            sticky
-            auto
-            .target="${this.activeNode}"
-            ?hidden="${!this.skillsOpened}"
-          >
-        </absolute-position-behavior>
-      
-  
-    </main> `;
+          
+
+        
+     `;
 
   }
 
