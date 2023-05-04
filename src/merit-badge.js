@@ -10,6 +10,7 @@ class MeritBadge extends LitElement {
     buttontext: { type: String },
     activeNode: { type: Object },
     skills: { type: String },
+    details: { type: String },
     skillsOpened: { type: Boolean },
     detailsOpened: { type: Boolean },
     lockOpened: {type: Boolean},
@@ -123,18 +124,21 @@ class MeritBadge extends LitElement {
     }
 
     .skill-list {
-      display: inline-flex;
-      width: 400px;
-      border-color: black;
+      width: 100px;
+      background-color: green;
     }
 
     .details-list {
-      width: 400px;
-      border-color: black;
+      position: relative;
+      left: 20px;
+      width: 100px;
+      padding-bottom: 30px;
+      background-color: gray;
+      
     }
 
     .details {
-      border-color: black;
+      position: relative;
     }
 
 
@@ -306,9 +310,6 @@ class MeritBadge extends LitElement {
             <div class="button-text">Unlock</div>
         </simple-icon-button>
 
-          
-
-        
      `;
 
   }
