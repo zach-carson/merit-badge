@@ -9,6 +9,7 @@ class MeritBadge extends LitElement {
     title_: { type: String },
     buttontext: { type: String },
     activeNode: { type: Object },
+    skills: { type: String },
     skillsOpened: { type: Boolean },
     detailsOpened: { type: Boolean },
     lockOpened: {type: Boolean},
@@ -127,6 +128,16 @@ class MeritBadge extends LitElement {
       border-color: black;
     }
 
+    .details-list {
+      width: 400px;
+      border-color: black;
+    }
+
+    .details {
+      border-color: black;
+    }
+
+
 
     :host([newcolor="red"]) .badge {
       background-color: var (--badge-accent-color, red);
@@ -175,7 +186,9 @@ class MeritBadge extends LitElement {
     this.icon = 'android';
     this.iconcolor = 'black';
     this.hyperlink = 'https://hax.psu.edu/';
+    this.skills = 'Skill 1, Skill 2, Skill 3';
     this.skillsArray = [];
+    this.details = 'Details';
   }
 
 
@@ -191,6 +204,12 @@ class MeritBadge extends LitElement {
     this.detailsOpened = !this.detailsOpened;
   }
 
+  firstUpdated(changedProperties) {
+    if (super.firstUpdated) {
+      super.firstUpdated(changedProperties);
+    }
+    this.activeNode = this.shadowRoot.querySelector(".badge");
+  }
   
   render() {
     return html` 
@@ -256,13 +275,23 @@ class MeritBadge extends LitElement {
               <simple-icon accent-color="black" icon="create">
               </simple-icon>
           </simple-icon-button>
+
+          <absolute-position-behavior
+                class="details-list"
+                justify
+                position="bottom"
+                allow-overlap
+                sticky
+                auto
+                .target="${this.activeNode}"
+                ?hidden="${!this.detailsOpened}"
+              >
+                <div>${this.details}</div>
+            </absolute-position-behavior>
+
+          
           </div>
         </div>
-
-        
-          
-           
-      
 
         <div class="badge-lock" ?hidden="${this.lockOpened}">
             <simple-icon class="lock-icon" accent-color="black" icon="lock">
