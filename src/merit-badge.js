@@ -10,12 +10,17 @@ class MeritBadge extends LitElement {
     buttontext: { type: String },
     activeNode: { type: Object },
     skillsOpened: { type: Boolean },
+    detailsOpened: { type: Boolean },
+    lockOpened: {type: Boolean},
     icon: {type: String},
     iconcolor: {type: String},
     newcolor: {
       type: String,
       reflect: true,
       attribute: 'newcolor'
+    },
+    hyperlink: {
+      type: String
     },
   };
 
@@ -38,19 +43,37 @@ class MeritBadge extends LitElement {
       font-weight: normal;
     }
     
-
-
     .badge-icon {
       position: relative;
-      top: -100px;
-      left: 3px;
+      top: 0px;
+      left: 1px;
     }
+
+    .verification-link {
+      position: relative;
+      top: 55px;
+      left: -7px;
+    }
+
+    .skills {
+      position: relative;
+      top: 55px;
+      left: -0px;
+    }
+
+    .details-icon {
+      position: relative;
+      top: 55px;
+      left: 5px;
+    }
+
+
 
     .badge-lock {
       position: relative;
       width: 210px;
       height: 210px;
-      top: -87.5px;
+      top: -114px;
       left: -5px;
       border-radius: 50%;
       background-color: grey;
@@ -85,15 +108,25 @@ class MeritBadge extends LitElement {
       position: relative;
       text-align: center;
       padding-bottom: 0px;
-      top: 10px;
+      top: 24px;
     }
 
     .text2 {
       position: relative;
       text-align: center;
-      
-      top: 110px;
+      top: 85px;
     }
+
+    .badge-text {
+      font-size: 16px;
+    }
+
+    .skill-list {
+      display: inline-flex;
+      width: 400px;
+      border-color: black;
+    }
+
 
     :host([newcolor="red"]) .badge {
       background-color: var (--badge-accent-color, red);
@@ -141,7 +174,8 @@ class MeritBadge extends LitElement {
     this.buttontext = 'Unlock';
     this.icon = 'android';
     this.iconcolor = 'black';
-    
+    this.hyperlink = 'https://hax.psu.edu/';
+    this.skillsArray = [];
   }
 
 
@@ -149,11 +183,19 @@ class MeritBadge extends LitElement {
     this.skillsOpened = !this.skillsOpened;
   }
 
+  unlockClick(e) {
+    this.lockOpened = !this.lockOpened;
+  }
+
+  detailsClick(e) {
+    this.detailsOpened = !this.detailsOpened;
+  }
+
+  
   render() {
     return html` 
     
         <div class="badge">
-          <div class="icon"><div>
           <div class="badge-text">
 
             <div class='text1'>
@@ -163,22 +205,34 @@ class MeritBadge extends LitElement {
             <div class='text2'>
               <div id="text">${this.title_}</h1>
             </div>
-              
-            <div class="badge-icon">
+
+          </div>
+
+          <div class="badge-icon">
               <simple-icon accent-color=${this.iconcolor} icon=${this.icon}>
               </simple-icon>
-            </div>
-
           </div>
-          </div>
-          
-          
-          
-        </div>
 
-        
-          
-            <absolute-position-behavior
+          <simple-icon-button
+              class="verification-link"
+          >
+              <a href=${this.hyperlink}>
+                <simple-icon accent-color="black" icon="social:person-outline">
+                </simple-icon>
+              </a>
+          </simple-icon-button>
+
+          <simple-icon-button
+              class="skills"
+              icon="cancel"
+              @click="${this.skillClick}"
+          >
+              <simple-icon accent-color="black" icon="check-box">
+              </simple-icon>
+          </simple-icon-button>
+
+          <absolute-position-behavior
+              class="skills-list"
               justify
               position="bottom"
               allow-overlap
@@ -187,10 +241,30 @@ class MeritBadge extends LitElement {
               .target="${this.activeNode}"
               ?hidden="${!this.skillsOpened}"
             >
-            </absolute-position-behavior>
+              ${this.skillsArray.map(
+              (item) => html`
+                  <li>${item}</li>
+              `
+              )}
+          </absolute-position-behavior>
+                
+          <simple-icon-button
+              class="details-icon"
+              icon="cancel"
+              @click="${this.detailsClick}"
+          >
+              <simple-icon accent-color="black" icon="create">
+              </simple-icon>
+          </simple-icon-button>
+          </div>
+        </div>
+
+        
+          
+           
       
 
-        <div class="badge-lock" ?hidden="${this.skillsOpened}">
+        <div class="badge-lock" ?hidden="${this.lockOpened}">
             <simple-icon class="lock-icon" accent-color="black" icon="lock">
             </simple-icon>
         <div>
@@ -198,10 +272,10 @@ class MeritBadge extends LitElement {
         <simple-icon-button
               class="button"
               icon="cancel"
-              @click="${this.skillClick}"
+              @click="${this.unlockClick}"
           >
             <div class="button-text">Unlock</div>
-          </simple-icon-button>
+        </simple-icon-button>
 
           
 
